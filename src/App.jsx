@@ -1,14 +1,15 @@
-import { Center, Flex, Text, Button, Box } from "@chakra-ui/react"
+import { Center, Flex, Text, Button } from "@chakra-ui/react"
 import Modal from "./Modal"
-import { Fragment, useState } from "react"
+import TodoForm from "./TodoForm"
+import {useState } from "react"
 
 function App() {
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const openModal = () => {
     setModalIsOpen(true)
   }
-  const modalClose = (close) => {
-    setModalIsOpen(close)
+  const closeModal = () => {
+    setModalIsOpen(false)
   }
   return (
     <>
@@ -18,7 +19,7 @@ function App() {
           <Button size='md' px='40px' color='white' colorScheme='blue' onClick={openModal}>create todo</Button>
         </Flex>
       </Center>
-      {modalIsOpen === true? <Modal close={modalClose}/>: null}
+      {modalIsOpen === true? <Modal onClose={closeModal} isOpen={openModal} renderTodoForm={<TodoForm CloseModal={closeModal}/>}/>: null}
     </>
   )
 }

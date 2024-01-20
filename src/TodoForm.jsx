@@ -1,11 +1,11 @@
-import { Box, Button, Center, Flex, Input, Textarea } from "@chakra-ui/react"
+import { Box, Button, Flex, Input, Textarea ,VStack} from "@chakra-ui/react"
 import { useState } from "react"
-const TodoForm = ({ close }) => {
+const TodoForm = ({ CloseModal }) => {
     const [todoForm,setTodoForm] =useState({
         title:'',
         description: ''
     })
-    const handleChange = (e) => {
+    const handleFieldsChange = (e) => {
         setTodoForm(preve => {
             return{
                 ...preve,
@@ -14,16 +14,14 @@ const TodoForm = ({ close }) => {
         })
     }
     return (
-        <>
-            <Button position='absolute' right='0' onClick={() => close(false)}>X</Button>
-            <Box color={"black"}>
-                <Flex direction='column' gap={5} >
+        <form>
+                <VStack>
                     <Input
                         type="text"
                         placeholder="Title"
                         w='25vw'
                         name="title"
-                        onChange={handleChange}
+                        onChange={handleFieldsChange}
                         value={todoForm.title}
                     />
                     <Textarea
@@ -31,13 +29,12 @@ const TodoForm = ({ close }) => {
                         placeholder="Description"
                         w='25vw'
                         name="description"
-                        onChange={handleChange}
+                        onChange={handleFieldsChange}
                         value={todoForm.description}
                     />
                     <Button color='white' colorScheme='blue' w='25vw'>Add</Button>
-                </Flex>
-            </Box>
-        </>
+                </VStack>
+        </form>
     )
 }
 export default TodoForm
