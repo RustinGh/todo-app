@@ -1,25 +1,24 @@
-import { Center, Flex, Text, Button } from "@chakra-ui/react"
+import { Center, Text, Button, HStack } from "@chakra-ui/react"
 import Modal from "./Modal"
-import TodoForm from "./TodoForm"
 import {useState } from "react"
 
 function App() {
-  const [modalIsOpen, setModalIsOpen] = useState(false)
+  const [isOpenModal, setIsOpenModal] = useState(false)
+
   const openModal = () => {
-    setModalIsOpen(true)
+    setIsOpenModal(true)
   }
   const closeModal = () => {
-    setModalIsOpen(false)
+    setIsOpenModal(false)
   }
+
   return (
     <>
-      <Center>
-        <Flex justify='space-around' w='100vw' h='15vh' align='center'>
+        <HStack justifyContent='space-around'>
           <Text fontSize='3xl' color='skyblue'>Todo App</Text>
-          <Button size='md' px='40px' color='white' colorScheme='blue' onClick={openModal}>create todo</Button>
-        </Flex>
-      </Center>
-      {modalIsOpen === true? <Modal onClose={closeModal} isOpen={openModal} renderTodoForm={<TodoForm CloseModal={closeModal}/>}/>: null}
+          <Button size='md' px='40px' color='white' colorScheme='blue' onClick={openModal}>Create</Button>
+        </HStack>
+      <Modal isOpen={isOpenModal} onClose={closeModal} />
     </>
   )
 }

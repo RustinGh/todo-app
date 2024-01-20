@@ -1,21 +1,22 @@
-import{Modal as ChakraModal}from'@chakra-ui/react'
 import {
+    Modal as ChakraModal,
     ModalOverlay,
     ModalContent,
     ModalHeader,
     ModalBody,
     ModalCloseButton,
-  } from '@chakra-ui/react'
+} from '@chakra-ui/react'
+import TodoForm from './TodoForm'
 
-const Modal = ({renderTodoForm ,  onClose ,isOpen}) => {
+const Modal = ({ isOpen, onClose }) => {
     return (
         <ChakraModal blockScrollOnMount={false} isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Modal Title</ModalHeader>
+          <ModalHeader>Todo Modal</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-          {renderTodoForm}
+            <TodoForm/>
           </ModalBody>
         </ModalContent>
       </ChakraModal>
