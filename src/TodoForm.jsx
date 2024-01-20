@@ -1,6 +1,6 @@
-import { Box, Button, Flex, Input, Textarea ,VStack} from "@chakra-ui/react"
+import { Button,  Input, Textarea ,VStack} from "@chakra-ui/react"
 import { useState } from "react"
-const TodoForm = ({ CloseModal }) => {
+const TodoForm = () => {
     const [todoForm,setTodoForm] =useState({
         title:'',
         description: ''
