@@ -1,4 +1,4 @@
-import { Center, Text, Button, HStack } from "@chakra-ui/react"
+import { Text, Button, HStack } from "@chakra-ui/react"
 import Modal from "./Modal"
 import {useState } from "react"
 
