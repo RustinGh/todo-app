@@ -1,6 +1,6 @@
 import { Button,  Input, Textarea ,VStack} from "@chakra-ui/react"
 import { useState } from "react"
-const TodoForm = () => {
+const TodoForm = ({onTodosChange,onModalClose}) => {
     const [todo, setTodo] = useState({
         title:'',
         description: ''
@@ -9,8 +9,14 @@ const TodoForm = () => {
         const {name, value} = e.target
         setTodo({...todo, [name]: value})
     }
+    const submitTodo = (e) => {
+        e.preventDefault()
+        onTodosChange(todo)
+        onModalClose()
+    }
+
     return (
-        <form>
+        <form onSubmit={submitTodo}>
             <VStack>
                 <Input
                     type="text"
@@ -26,7 +32,7 @@ const TodoForm = () => {
                     onChange={handleFieldsChange}
                     value={todo.description}
                 />
-                <Button color='white' colorScheme='blue' w='100%'>Add</Button>
+                <Button color='white' colorScheme='blue' w='100%' type="submit">Add</Button>
             </VStack>
         </form>
     )
