@@ -1,5 +1,6 @@
 import { Text, Button, HStack } from "@chakra-ui/react"
 import Modal from "./Modal"
+import TodosList from "./TodosList"
 import { useState } from "react"
 
 function App() {
@@ -19,9 +20,10 @@ function App() {
   return (
     <>
         <HStack justifyContent='space-around'>
-          <Text fontSize='3xl' color='skyblue'>Todo App</Text>
-          <Button size='md' px='40px' color='white' colorScheme='blue' onClick={openModal}>Create</Button>
+          <Text fontSize='3xl' color='teal'>Todo App</Text>
+          <Button size='lg' colorScheme='teal' onClick={openModal}>Create</Button>
         </HStack>
+        <TodosList todos={todos}/>
       <Modal isOpen={isOpenModal} onClose={closeModal} onTodosChange={updateTodos}/>
     </>
   )
