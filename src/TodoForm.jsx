@@ -1,10 +1,12 @@
 import { Button, Input, Textarea, VStack } from "@chakra-ui/react"
 import { useState } from "react"
+import { v4 as uuidv4 } from 'uuid';
 
 const TodoForm = ({ onTodosChange, onModalClose }) => {
     const [todo, setTodo] = useState({
         title: '',
-        description: ''
+        description: '',
+        id: uuidv4()
     })
     const isValidTodo = todo.title && todo.description
     const handleFieldsChange = (e) => {

@@ -15,8 +15,8 @@ const TodosList = ({ todos }) => {
         {todos.length === 0 ? <Text>No todos</Text>
         :
         <List width='50%' >
-        {todos.map((todo, index) => 
-        <ListItem key={index} boxShadow='xl' mb='1rem'> 
+        {todos.map((todo) => 
+        <ListItem key={todo.id} boxShadow='xl' mb='1rem'> 
             <Card direction='row' alignItems='center'>
                 <CardBody>
                 <Text>{todo.title}</Text>
