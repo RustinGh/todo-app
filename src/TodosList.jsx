@@ -10,8 +10,8 @@ import {
 } from "@chakra-ui/react"
 
 const TodosList = ({ todos, deleteTodo }) => {
-    const removeTodo = (id) => {
-        deleteTodo(todos.filter(todo => todo.id === id))
+    const deleteTodos = (id) => {
+        deleteTodo(todos.filter(todo => todo.id !== id))
     }
     return(
         <Center mt='2rem'>
@@ -26,7 +26,7 @@ const TodosList = ({ todos, deleteTodo }) => {
                 <Text>{todo.description}</Text>
                 </CardBody>
                 <CardFooter>
-                <Button onClick={removeTodo}>Delete</Button>
+                <Button onClick={() => deleteTodos(todo.id)}>Delete</Button>
                 </CardFooter>
             </Card>
         </ListItem>
