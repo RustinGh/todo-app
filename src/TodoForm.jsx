@@ -1,16 +1,30 @@
-import { Button,  Input, Textarea ,VStack} from "@chakra-ui/react"
+import { Button, Input, Textarea, VStack } from "@chakra-ui/react"
 import { useState } from "react"
-const TodoForm = () => {
+import { v4 as uuidv4 } from 'uuid';
+
+const TodoForm = ({ onTodosChange, onModalClose }) => {
     const [todo, setTodo] = useState({
-        title:'',
-        description: ''
+        title: '',
+        description: '',
+        id: uuidv4()
     })
+    const isValidTodo = todo.title && todo.description
     const handleFieldsChange = (e) => {
         const {name, value} = e.target
         setTodo({...todo, [name]: value})
     }
+    const submitTodo = (e) => {
+        e.preventDefault()
+        if(!isValidTodo) {
+            alert('Please fill out the fields!')
+           return
+        }
+        onTodosChange(todo)
+        onModalClose()
+    }
+
     return (
-        <form>
+        <form onSubmit={submitTodo}>
             <VStack>
                 <Input
                     type="text"
@@ -26,7 +40,7 @@ const TodoForm = () => {
                     onChange={handleFieldsChange}
                     value={todo.description}
                 />
-                <Button color='white' colorScheme='blue' w='100%'>Add</Button>
+                <Button color='white' colorScheme='teal' w='100%' type="submit">Add</Button>
             </VStack>
         </form>
     )
