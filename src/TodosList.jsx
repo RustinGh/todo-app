@@ -9,7 +9,10 @@ import {
     CardFooter 
 } from "@chakra-ui/react"
 
-const TodosList = ({ todos }) => {
+const TodosList = ({ todos, deleteTodo }) => {
+    const removeTodo = (id) => {
+        deleteTodo(todos.filter(todo => todo.id === id))
+    }
     return(
         <Center mt='2rem'>
         {todos.length === 0 ? <Text>No todos</Text>
@@ -23,7 +26,7 @@ const TodosList = ({ todos }) => {
                 <Text>{todo.description}</Text>
                 </CardBody>
                 <CardFooter>
-                <Button>Delete</Button>
+                <Button onClick={removeTodo}>Delete</Button>
                 </CardFooter>
             </Card>
         </ListItem>
