@@ -16,7 +16,7 @@ function App() {
   const updateTodos = (todo) => {
     setTodos([...todos, todo])
   }
-  const deleteTodo = (deleted) => {
+  const onDeleteTodo = (deleted) => {
     setTodos(deleted)
   }
 
@@ -26,7 +26,7 @@ function App() {
           <Text fontSize='3xl' color='teal'>Todo App</Text>
           <Button size='lg' colorScheme='teal' onClick={openModal}>Create</Button>
         </HStack>
-        <TodosList todos={todos} deleteTodo={deleteTodo}/>
+        <TodosList todos={todos} onDeleteTodo={onDeleteTodo}/>
       <Modal isOpen={isOpenModal} onClose={closeModal} onTodosChange={updateTodos}/>
     </>
   )
