@@ -6,12 +6,25 @@ import {
     Button,
     Card,
     CardBody,
-    CardFooter 
+    CardFooter,
+    Modal,
+    ModalOverlay,
+    ModalContent,
+    ModalHeader,
+    ModalFooter,
+    ModalBody,
+    ModalCloseButton,
+    useDisclosure 
 } from "@chakra-ui/react"
+import { useState } from "react"
+import DeleteModal from "./DeleteModal"
 
 const TodosList = ({ todos, onDeleteTodo }) => {
+    const { isOpen, onOpen, onClose } = useDisclosure()
+    const [todo, setTodo] = useState(null)
+
     const deleteTodoById = (id) => {
-        onDeleteTodo(todos.filter(todo => todo.id !== id))
+       onDeleteTodo(todos.filter(todo => todo.id !== id))
     }
     return(
         <Center mt='2rem'>
@@ -26,13 +39,17 @@ const TodosList = ({ todos, onDeleteTodo }) => {
                 <Text>{todo.description}</Text>
                 </CardBody>
                 <CardFooter>
-                <Button onClick={() => deleteTodoById(todo.id)}>Delete</Button>
+                <Button onClick={() =>{
+                    onOpen()
+                    setTodo(todo)
+                }}>Delete</Button>
                 </CardFooter>
             </Card>
         </ListItem>
         )}
         </List>
         }
+        <DeleteModal onDeleteTodo={deleteTodoById} todo={todo} isOpen={isOpen} onClose={onClose}/>
         </Center>
     )
 }
