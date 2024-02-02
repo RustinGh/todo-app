@@ -1,49 +1,45 @@
 import {
-    Modal,
-    ModalOverlay,
-    ModalContent,
-    ModalHeader,
-    ModalFooter,
-    ModalBody,
-    ModalCloseButton,
-    Text,
-    Button
-} from "@chakra-ui/react"
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  Text,
+  Button,
+} from "@chakra-ui/react";
 const DeleteModal = ({ onDeleteTodo, todo, isOpen, onClose }) => {
-    return (
-        <>
-
-            <Modal 
-            blockScrollOnMount={false} 
-            isOpen={isOpen}
-            onClose={onClose}
-            isCentered
-            >
+  const closeModalWithDeleteTodo = () => {
+    onDeleteTodo(todo?.id);
+    onClose();
+  };
+  return (
+    <>
+      <Modal
+        blockScrollOnMount={false}
+        isOpen={isOpen}
+        onClose={onClose}
+        isCentered
+      >
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>
-          <Text color='red'>
-                            delete todo
-                        </Text>
+            <Text color="red">delete todo</Text>
           </ModalHeader>
           <ModalCloseButton />
-          <ModalBody>
-          Are you sure about delete {todo?.title} Todo?
-          </ModalBody>
+          <ModalBody>Are you sure about delete {todo?.title} Todo?</ModalBody>
           <ModalFooter>
-                <Button colorScheme='blue' mr={3} onClick={onClose}>
-                    Close
-                </Button>
-                <Button variant='ghost' onClick={() => {
-                    onDeleteTodo(todo?.id)
-                    onClose()
-                    }}>
-                        Yes i'm sure
-                </Button>
-            </ModalFooter>
+            <Button colorScheme="blue" mr={3} onClick={onClose}>
+              Close
+            </Button>
+            <Button variant="ghost" onClick={() => closeModalWithDeleteTodo()}>
+              Yes i'm sure
+            </Button>
+          </ModalFooter>
         </ModalContent>
       </Modal>
-        </>
-    )
-}
-export default DeleteModal
+    </>
+  );
+};
+export default DeleteModal;
