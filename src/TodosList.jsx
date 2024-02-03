@@ -34,7 +34,7 @@ const TodosList = ({ todos, onDeleteTodo }) => {
               <Card direction="row" alignItems="center">
                 <CardBody>
                   <Text>{todo.title}</Text>
-                  <Text>{todo.description}</Text>
+                  <Text w="40rem">{todo.description}</Text>
                 </CardBody>
                 <CardFooter>
                   <Button onClick={() => openModalWithTodoUpdate(todo)}>
