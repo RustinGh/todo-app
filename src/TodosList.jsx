@@ -33,9 +33,12 @@ const TodosList = ({ todos, onDeleteTodo }) => {
             <ListItem key={todo.id} boxShadow="xl" mb="1rem">
               <Card direction="row" alignItems="center">
                 <CardBody>
-                  <Text>{todo.title}</Text>
                   <Text>
-                    {" "}
+                    {todo.title.length > 20
+                      ? todo.title.slice(0, 20) + "..."
+                      : todo.title}
+                  </Text>
+                  <Text>
                     {todo.description.length > 40
                       ? todo.description.slice(0, 40) + "..."
                       : todo.description}
