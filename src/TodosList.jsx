@@ -10,7 +10,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import DeleteModal from "./DeleteModal";
+import Modal from "./Modal";
 
 const TodosList = ({ todos, onDeleteTodo }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -19,9 +19,13 @@ const TodosList = ({ todos, onDeleteTodo }) => {
   const deleteTodoById = (id) => {
     onDeleteTodo(todos.filter((todo) => todo.id !== id));
   };
-  const openModalWithTodoUpdate = (todo) => {
+  const openDeleteModal = (todo) => {
     onOpen();
     setTodo(todo);
+  };
+  const handleDeleteTodo = () => {
+    deleteTodoById(todo?.id);
+    onClose();
   };
   return (
     <Center mt="2rem">
@@ -45,20 +49,28 @@ const TodosList = ({ todos, onDeleteTodo }) => {
                   </Text>
                 </CardBody>
                 <CardFooter>
-                  <Button onClick={() => openModalWithTodoUpdate(todo)}>
-                    Delete
-                  </Button>
+                  <Button onClick={() => openDeleteModal(todo)}>Delete</Button>
                 </CardFooter>
               </Card>
             </ListItem>
           ))}
         </List>
       )}
-      <DeleteModal
-        onDeleteTodo={deleteTodoById}
-        todo={todo}
+      <Modal
         isOpen={isOpen}
         onClose={onClose}
+        title="Delete Todo"
+        body={<>Are you sure about delete {todo?.title} Todo?</>}
+        footer={
+          <>
+            <Button colorScheme="blue" mr={3} onClick={onClose}>
+              Cancel
+            </Button>
+            <Button variant="ghost" onClick={handleDeleteTodo}>
+              Yes
+            </Button>
+          </>
+        }
       />
     </Center>
   );

@@ -1,18 +1,13 @@
-import { Text, Button, HStack } from "@chakra-ui/react";
+import { Text, Button, HStack, useDisclosure } from "@chakra-ui/react";
 import Modal from "./Modal";
 import TodosList from "./TodosList";
+import TodoForm from "./TodoForm";
 import { useState } from "react";
 
 function App() {
-  const [isOpenModal, setIsOpenModal] = useState(false);
   const [todos, setTodos] = useState([]);
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const openModal = () => {
-    setIsOpenModal(true);
-  };
-  const closeModal = () => {
-    setIsOpenModal(false);
-  };
   const updateTodos = (todo) => {
     setTodos([...todos, todo]);
   };
@@ -26,15 +21,16 @@ function App() {
         <Text fontSize="3xl" color="teal">
           Todo App
         </Text>
-        <Button size="lg" colorScheme="teal" onClick={openModal}>
+        <Button size="lg" colorScheme="teal" onClick={onOpen}>
           Create
         </Button>
       </HStack>
       <TodosList todos={todos} onDeleteTodo={onDeleteTodo} />
       <Modal
-        isOpen={isOpenModal}
-        onClose={closeModal}
-        onTodosChange={updateTodos}
+        title="Create Todo"
+        isOpen={isOpen}
+        onClose={onClose}
+        body={<TodoForm onTodosChange={updateTodos} onModalClose={onClose} />}
       />
     </>
   );
