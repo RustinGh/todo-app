@@ -11,20 +11,19 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import Modal from "./Modal";
+import DeleteActions from "./DeleteActions";
 
 const TodosList = ({ todos, onDeleteTodo }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [todo, setTodo] = useState(null);
 
-  const deleteTodoById = (id) => {
-    onDeleteTodo(todos.filter((todo) => todo.id !== id));
-  };
   const openDeleteModal = (todo) => {
     onOpen();
     setTodo(todo);
   };
   const handleDeleteTodo = () => {
-    deleteTodoById(todo?.id);
+    const nextTodosValue = todos.filter((t) => t.id !== todo?.id);
+    onDeleteTodo(nextTodosValue);
     onClose();
   };
   return (
@@ -60,16 +59,9 @@ const TodosList = ({ todos, onDeleteTodo }) => {
         isOpen={isOpen}
         onClose={onClose}
         title="Delete Todo"
-        body={<>Are you sure about delete {todo?.title} Todo?</>}
+        body={`Are you sure about delete ${todo?.title} Todo?`}
         footer={
-          <>
-            <Button colorScheme="blue" mr={3} onClick={onClose}>
-              Cancel
-            </Button>
-            <Button variant="ghost" onClick={handleDeleteTodo}>
-              Yes
-            </Button>
-          </>
+          <DeleteActions onCancel={onClose} onDeleteTodo={handleDeleteTodo} />
         }
       />
     </Center>
