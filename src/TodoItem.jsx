@@ -6,7 +6,7 @@ import {
   CardBody,
   CardFooter,
 } from "@chakra-ui/react";
-const TodoItem = ({ todo, triggerDeleteModal, triggerEditModal }) => {
+const TodoItem = ({ todo, onDeleteModalOpen, onEditModalOpen }) => {
   return (
     <ListItem boxShadow="xl" mb="1rem">
       <Card direction="row" alignItems="center">
@@ -19,8 +19,8 @@ const TodoItem = ({ todo, triggerDeleteModal, triggerEditModal }) => {
           </Text>
         </CardBody>
         <CardFooter>
-          <Button onClick={() => triggerDeleteModal(todo)}>Delete</Button>
-          <Button onClick={() => triggerEditModal(todo)}>Edit</Button>
+          <Button onClick={() => onDeleteModalOpen(todo)}>Delete</Button>
+          <Button onClick={() => onEditModalOpen(todo)}>Edit</Button>
         </CardFooter>
       </Card>
     </ListItem>

@@ -41,8 +41,8 @@ const TodosList = ({ todos, onDeleteTodo, onEditTodo }) => {
               <TodoItem
                 key={todo.id}
                 todo={todo}
-                triggerDeleteModal={triggerDeleteModal}
-                triggerEditModal={triggerEditModal}
+                onDeleteModalOpen={triggerDeleteModal}
+                onEditModalOpen={triggerEditModal}
               />
             ))}
           </List>
