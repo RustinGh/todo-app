@@ -8,13 +8,24 @@ function App() {
   const [todos, setTodos] = useState([]);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const updateTodos = (todo) => {
+  const addTodo = (todo) => {
     setTodos([...todos, todo]);
   };
-  const onDeleteTodo = (deleted) => {
-    setTodos(deleted);
+  const deleteTodo = (todoId) => {
+    const nextTodosValue = todos.filter((todo) => todo.id !== todoId);
+    setTodos(nextTodosValue);
   };
-
+  const editTodo = (editedTodo) => {
+    const { id, title, description } = editedTodo;
+    const nextTodosValues = todos.map((todo) => {
+      if (todo.id === id) {
+        todo.title = title;
+        todo.description = description;
+      }
+      return todo;
+    });
+    setTodos(nextTodosValues);
+  };
   return (
     <>
       <HStack justifyContent="space-around">
@@ -25,12 +36,16 @@ function App() {
           Create
         </Button>
       </HStack>
-      <TodosList todos={todos} onDeleteTodo={onDeleteTodo} />
+      <TodosList
+        todos={todos}
+        onDeleteTodo={deleteTodo}
+        onEditTodo={editTodo}
+      />
       <Modal
         title="Create Todo"
         isOpen={isOpen}
         onClose={onClose}
-        body={<TodoForm onTodosChange={updateTodos} onModalClose={onClose} />}
+        body={<TodoForm onCreateTodo={addTodo} onModalClose={onClose} />}
       />
     </>
   );
