@@ -1,66 +1,78 @@
-import {
-  Center,
-  List,
-  ListItem,
-  Text,
-  Button,
-  Card,
-  CardBody,
-  CardFooter,
-  useDisclosure,
-} from "@chakra-ui/react";
+import { Center, List, Text, useDisclosure } from "@chakra-ui/react";
 import { useState } from "react";
 import Modal from "./Modal";
 import DeleteActions from "./DeleteActions";
+import EditTodoForm from "./EditTodoForm";
+import TodoItem from "./TodoItem";
 
-const TodosList = ({ todos, onDeleteTodo }) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+const TodosList = ({ todos, onDeleteTodo, onEditTodo }) => {
+  const {
+    isOpen: showDeleteModal,
+    onOpen: openDeleteModal,
+    onClose: closeDeleteModal,
+  } = useDisclosure();
+  const {
+    isOpen: showEditModal,
+    onOpen: openEditModal,
+    onClose: closeEditModal,
+  } = useDisclosure();
   const [todo, setTodo] = useState(null);
 
-  const openDeleteModal = (todo) => {
-    onOpen();
+  const triggerDeleteModal = (todo) => {
+    openDeleteModal();
+    setTodo(todo);
+  };
+  const triggerEditModal = (todo) => {
+    openEditModal();
     setTodo(todo);
   };
   const handleDeleteTodo = () => {
-    const nextTodosValue = todos.filter((t) => t.id !== todo?.id);
-    onDeleteTodo(nextTodosValue);
-    onClose();
+    onDeleteTodo(todo.id);
+    closeDeleteModal();
   };
   return (
-    <Center mt="2rem">
-      {todos.length === 0 ? (
-        <Text>No todos</Text>
-      ) : (
-        <List width="50%">
-          {todos.map((todo) => (
-            <ListItem key={todo.id} boxShadow="xl" mb="1rem">
-              <Card direction="row" alignItems="center">
-                <CardBody>
-                  <Text w="60px" isTruncated>
-                    {todo.title}
-                  </Text>
-                  <Text w="200px" isTruncated>
-                    {todo.description}
-                  </Text>
-                </CardBody>
-                <CardFooter>
-                  <Button onClick={() => openDeleteModal(todo)}>Delete</Button>
-                </CardFooter>
-              </Card>
-            </ListItem>
-          ))}
-        </List>
-      )}
+    <>
+      <Center mt="2rem">
+        {todos.length === 0 ? (
+          <Text>No todos</Text>
+        ) : (
+          <List width="50%">
+            {todos.map((todo) => (
+              <TodoItem
+                key={todo.id}
+                todo={todo}
+                triggerDeleteModal={triggerDeleteModal}
+                triggerEditModal={triggerEditModal}
+              />
+            ))}
+          </List>
+        )}
+      </Center>
       <Modal
-        isOpen={isOpen}
-        onClose={onClose}
+        isOpen={showDeleteModal}
+        onClose={closeDeleteModal}
         title="Delete Todo"
         body={`Are you sure about delete ${todo?.title} Todo?`}
         footer={
-          <DeleteActions onCancel={onClose} onDeleteTodo={handleDeleteTodo} />
+          <DeleteActions
+            onCancel={closeDeleteModal}
+            onDeleteTodo={handleDeleteTodo}
+          />
         }
       />
-    </Center>
+      <Modal
+        isOpen={showEditModal}
+        onClose={closeEditModal}
+        title="Edit Todo"
+        body={
+          <EditTodoForm
+            todo={todo}
+            onEditTodo={onEditTodo}
+            onModalClose={closeEditModal}
+          />
+        }
+      />
+    </>
   );
 };
 
