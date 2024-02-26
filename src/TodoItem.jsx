@@ -18,7 +18,7 @@ const TodoItem = ({ todo, onDeleteModalOpen, onEditModalOpen }) => {
             {todo.description}
           </Text>
         </CardBody>
-        <CardFooter>
+        <CardFooter gap={2}>
           <Button onClick={() => onDeleteModalOpen(todo)}>Delete</Button>
           <Button onClick={() => onEditModalOpen(todo)}>Edit</Button>
         </CardFooter>
