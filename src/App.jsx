@@ -1,7 +1,7 @@
 import { Text, Button, HStack, useDisclosure } from "@chakra-ui/react";
 import Modal from "./Modal";
 import TodosList from "./TodosList";
-import TodoForm from "./TodoForm";
+import Form from "./TodoForm";
 import { useState } from "react";
 
 function App() {
@@ -45,7 +45,7 @@ function App() {
         title="Create Todo"
         isOpen={isOpen}
         onClose={onClose}
-        body={<TodoForm onCreateTodo={addTodo} onModalClose={onClose} />}
+        body={<Form onSubmit={addTodo} onModalClose={onClose} />}
       />
     </>
   );

@@ -2,7 +2,7 @@ import { Center, List, Text, useDisclosure } from "@chakra-ui/react";
 import { useState } from "react";
 import Modal from "./Modal";
 import DeleteActions from "./DeleteActions";
-import EditTodoForm from "./EditTodoForm";
+import Form from "./TodoForm";
 import TodoItem from "./TodoItem";
 
 const TodosList = ({ todos, onDeleteTodo, onEditTodo }) => {
@@ -65,9 +65,9 @@ const TodosList = ({ todos, onDeleteTodo, onEditTodo }) => {
         onClose={closeEditModal}
         title="Edit Todo"
         body={
-          <EditTodoForm
-            todo={todo}
-            onEditTodo={onEditTodo}
+          <Form
+            selectedTodo={todo}
+            onSubmit={onEditTodo}
             onModalClose={closeEditModal}
           />
         }
