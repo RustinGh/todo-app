@@ -2,12 +2,14 @@ import { Button, Input, Textarea, VStack } from "@chakra-ui/react";
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
-const TodoForm = ({ onCreateTodo, onModalClose }) => {
-  const [todo, setTodo] = useState({
-    title: "",
-    description: "",
-    id: uuidv4(),
-  });
+const initialTodo = {
+  title: "",
+  description: "",
+  id: uuidv4(),
+};
+
+const TodoForm = ({ selectedTodo, onSubmit, onModalClose }) => {
+  const [todo, setTodo] = useState(selectedTodo ? selectedTodo : initialTodo);
   const isValidTodo =
     todo.title.trim() !== "" && todo.description.trim() !== "";
   const handleTodoChange = (e) => {
@@ -25,7 +27,7 @@ const TodoForm = ({ onCreateTodo, onModalClose }) => {
       title: todo.title.trim(),
       description: todo.description.trim(),
     };
-    onCreateTodo(trimmedTodo);
+    onSubmit(trimmedTodo);
     onModalClose();
   };
 
@@ -47,7 +49,7 @@ const TodoForm = ({ onCreateTodo, onModalClose }) => {
           value={todo.description}
         />
         <Button color="white" colorScheme="teal" w="100%" type="submit">
-          Add
+          {selectedTodo ? "Edit" : "Add"}
         </Button>
       </VStack>
     </form>
