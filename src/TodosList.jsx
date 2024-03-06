@@ -30,6 +30,7 @@ const TodosList = ({ todos, onDeleteTodo, onEditTodo }) => {
     onDeleteTodo(todo.id);
     closeDeleteModal();
   };
+  console.log(todos);
   return (
     <>
       <Center mt="2rem">

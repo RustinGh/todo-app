@@ -5,15 +5,20 @@ import Form from "./TodoForm";
 import { useState } from "react";
 
 function App() {
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState(
+    JSON.parse(localStorage.getItem("todos")) ?? []
+  );
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const addTodo = (todo) => {
-    setTodos([...todos, todo]);
+    const nextTodosValue = [...todos, todo];
+    setTodos(nextTodosValue);
+    localStorage.setItem("todos", JSON.stringify(nextTodosValue));
   };
   const deleteTodo = (todoId) => {
     const nextTodosValue = todos.filter((todo) => todo.id !== todoId);
     setTodos(nextTodosValue);
+    localStorage.setItem("todos", JSON.stringify(nextTodosValue));
   };
   const editTodo = (editedTodo) => {
     const { id, title, description } = editedTodo;
@@ -25,6 +30,7 @@ function App() {
       return todo;
     });
     setTodos(nextTodosValues);
+    localStorage.setItem("todos", JSON.stringify(nextTodosValues));
   };
   return (
     <>
