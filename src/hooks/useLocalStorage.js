@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { getStorageItem, setStorageItem } from "../utills/Storage"
+import { getStorageItem, setStorageItem } from '../utills/storage'
 
 const useLocalSrorage = (key, value) => {
     const [state, setState] = useState(
